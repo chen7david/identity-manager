@@ -3,12 +3,12 @@ micro-service that manages authentication related procedures
 
 
 ### Account
-Name | Method | URL
+Name | Description | Method | URL
 --- | --- | --- | 
-register | POST | /register
-login | POST | /login
-extend | POST | /extend
-logout | POST | /logout
+register | creates a new user | POST | /register
+login | authenticates user | POST | /login
+extend | issues a new access-token | POST | /extend
+logout | deactivates the refresh-token on the server | POST | /logout
 
 Name | Method | URL
 --- | --- | --- | 
