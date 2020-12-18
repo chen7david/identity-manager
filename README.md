@@ -20,7 +20,7 @@ delete-user  | deletes a user | DELETE | /users/:id
 ### User Tokens
 Name | Description | Method | URL
 --- | --- | --- | --- |
-get-users-tokens | gets all registered users | GET | /users/tokens
+get-users-tokens | gets all of a user's tokens | GET | /users/:id/tokens
 edit-user-token | update user credentials | PATCH | /users/:id/tokens/:id
 deactivate-user-token  | deletes a user | DELETE | /users/:id/tokens/:id
 
