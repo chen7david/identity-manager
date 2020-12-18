@@ -14,16 +14,27 @@ logout | deactivates the refresh-token on the server | POST | /logout
 Name | Description | Method | URL
 --- | --- | --- | --- |
 get-users | gets all registered users | GET | /users
-edit-user | update user credentials | PATCH | /user/:id
-delete-user  | deletes a user | DELETE | /user/:id
+edit-user | update user credentials | PATCH | /users/:id
+delete-user  | deletes a user | DELETE | /users/:id
+
+### User Tokens
+Name | Description | Method | URL
+--- | --- | --- | --- |
+get-users-tokens | gets all registered users | GET | /users/tokens
+edit-user-token | update user credentials | PATCH | /users/:id/tokens/:id
+deactivate-user-token  | deletes a user | DELETE | /users/:id/tokens/:id
+
+### User Roles
+Name | Description | Method | URL
+--- | --- | --- | --- |
+get-users | gets all registered users | GET | /users
+edit-user | update user credentials | PATCH | /users/:id
+delete-user  | deletes a user | DELETE | /users/:id
 
 Name | Method | URL
 --- | --- | --- | 
-get-all-users | GET | /users
-edit-user | PATCH | /user/:id
-delete-user | DELETE | /users/:id
 get-all-user-tokens | GET | /users/:id/tokens
-get-all-user-roles | GET | /movies/:id/roles
+get-all-user-roles | GET | /users/:id/roles
 reset-password | POST | /users/:id/password
 update-email | PATCH | /users/:id/email
 update-password | PATCH | /users/:id/password
