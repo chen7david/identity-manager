@@ -4,7 +4,7 @@ micro-service that manages authentication related procedures
 
 ### Account
 Name | Description | Method | URL
---- | --- | --- | 
+--- | --- | --- | --- | 
 register | creates a new user | POST | /register
 login | authenticates user | POST | /login
 extend | issues a new access-token | POST | /extend
