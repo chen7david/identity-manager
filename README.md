@@ -21,20 +21,19 @@ delete-user  | deletes a user | DELETE | /users/:id
 Name | Description | Method | URL
 --- | --- | --- | --- |
 get-users-tokens | gets all of a user's tokens | GET | /users/:id/tokens
-edit-user-token | update user credentials | PATCH | /users/:id/tokens/:id
-deactivate-user-token  | deletes a user | DELETE | /users/:id/tokens/:id
+revoke-user-token  | revoke a token | DELETE | /users/:id/tokens/:id
+
+### Roles
+Name | Description | Method | URL
+--- | --- | --- | --- |
+get-roles | gets all roles | GET | /roles
+create-role | create new role | POST | /roles
+edit-role | update role credentials | PATCH | /roles/:id
+delete-role  | deletes a role | DELETE | /roles/:id
 
 ### User Roles
 Name | Description | Method | URL
 --- | --- | --- | --- |
-get-users | gets all registered users | GET | /users
-edit-user | update user credentials | PATCH | /users/:id
-delete-user  | deletes a user | DELETE | /users/:id
+get-user-roles | gets all of a user's roles | GET | /users/:id/roles
+update-user-roles | links and or unlinks user-roles  | PATCH | /users/:id/roles
 
-Name | Method | URL
---- | --- | --- | 
-get-all-user-tokens | GET | /users/:id/tokens
-get-all-user-roles | GET | /users/:id/roles
-reset-password | POST | /users/:id/password
-update-email | PATCH | /users/:id/email
-update-password | PATCH | /users/:id/password
