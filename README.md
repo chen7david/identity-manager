@@ -10,7 +10,8 @@ login | POST | /login
 extend | POST | /extend
 logout | POST | /logout
 
-
+Name | Method | URL
+--- | --- | --- | 
 get-all-users | GET | /users
 edit-user | PATCH | /user/:id
 delete-user | DELETE | /users/:id
