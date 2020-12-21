@@ -1,0 +1,21 @@
+
+security:
+    # passphrase: privatekey
+    passphrase: seconprivatekey
+    accexp: 1s
+    refexp: 30d
+
+database:
+    client: postgresql
+    connection:
+        database: some-database-name
+        host: '192.168.50.251'
+        port: 3001
+        user: admin
+        password: admin
+    migrations:
+        tableName: knex_migrations
+        directory: ./src/models/migrations
+    pool:
+        min: 2
+        max: 10
