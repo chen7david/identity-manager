@@ -1,0 +1,28 @@
+{
+  "name": "identity-manager",
+  "version": "1.0.0",
+  "description": "micro-service that manages authentication related procedures",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/main.js",
+    "prikey": "openssl genpkey -algorithm RSA -aes256 -out config/private.pem",
+    "pubkey": "openssl rsa -in config/private.pem -pubout -outform PEM -out config/public.pem"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chen7david/identity-manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chen7david/identity-manager/issues"
+  },
+  "homepage": "https://github.com/chen7david/identity-manager#readme",
+  "dependencies": {
+    "config": "^3.3.3",
+    "js-yaml": "^3.14.1",
+    "koa": "^2.13.0",
+    "koa-router": "^10.0.0"
+  }
+}
