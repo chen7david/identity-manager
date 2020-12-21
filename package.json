@@ -21,6 +21,7 @@
   "homepage": "https://github.com/chen7david/identity-manager#readme",
   "dependencies": {
     "config": "^3.3.3",
+    "joi": "^17.3.0",
     "js-yaml": "^3.14.1",
     "jsonwebtoken": "^8.5.1",
     "kcors": "^2.2.2",

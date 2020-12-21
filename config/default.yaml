@@ -1,6 +1,9 @@
+server:
+   protocol: 'http'
+   hostname: 'localhost'
+   port: 3000
 
 security:
-    # passphrase: privatekey
     passphrase: seconprivatekey
     accexp: 1s
     refexp: 30d

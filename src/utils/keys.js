@@ -10,8 +10,6 @@ const refsign = { expiresIn: refexp, algorithm: 'RS256' }
 const versign = { algorithms: ['RS256'] }
 const prikey = { key: _prikey, passphrase }
 
-const jwt = require('jsonwebtoken')
-
 module.exports = {
     prikey,
     pubkey,
@@ -19,8 +17,3 @@ module.exports = {
     refsign,
     versign
 }
-
-const token = jwt.sign({x:2}, prikey, accsign)
-const verify = jwt.verify(token, pubkey, versign)
-// 
-dd({token, verify})
