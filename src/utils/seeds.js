@@ -18,7 +18,7 @@ const run = async () => {
         process.exit()
     } catch (err) {
         console.log('seed failed: ', err)
+        process.exit()
     }
 }
-
 run()
