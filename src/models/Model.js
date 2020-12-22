@@ -1,8 +1,8 @@
 const { Model } = require('objection')
-const knexfile = require('./../../knexfile')
+const knexfile = require('./../../knexfile').development
 const Knex = require('knex')(knexfile)
 const OM = require('objection-mixin')
-Model.Knex(Knex)
+Model.knex(Knex)
 
 class BaseModel extends OM(Model) {
 
