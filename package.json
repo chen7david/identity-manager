@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/main.js",
+    "dbup": "knex migrate:latest",
+    "dbdown": "knex migrate:rollback",
+    "dbreset": "npm run dbdown && npm run dbup",
     "prikey": "openssl genpkey -algorithm RSA -aes256 -out config/private.pem",
     "pubkey": "openssl rsa -in config/private.pem -pubout -outform PEM -out config/public.pem"
   },

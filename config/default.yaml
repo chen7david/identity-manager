@@ -12,7 +12,7 @@ security:
 database:
     client: postgresql
     connection:
-        database: some-database-name
+        database: auth-manager
         host: '192.168.50.251'
         port: 3001
         user: admin

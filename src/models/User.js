@@ -22,7 +22,7 @@ class User extends Model {
         await super.$beforeInsert(context)
         if(this.password) this.password = await bcrypt
             .hash(this.password, BCRYPT_ROUNDS)
-        if(this.email) this.verified = false
+        if(this.email) this.confirmed = false
     }
 
     async $afterFind(context){
