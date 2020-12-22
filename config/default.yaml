@@ -4,6 +4,7 @@ server:
    port: 3000
 
 security:
+    refkey: secretinformation
     passphrase: seconprivatekey
     accexp: 1s
     refexp: 30d
