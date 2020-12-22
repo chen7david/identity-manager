@@ -1,9 +1,10 @@
 const { Model } = require('objection')
 const knexfile = require('./../../knexfile')
 const Knex = require('knex')(knexfile)
+const OM = require('objection-mixin')
 Model.Knex(Knex)
 
-class BaseModel extends Model {
+class BaseModel extends OM(Model) {
 
     $formatJson(json) {
         json = super.$formatJson(json)
