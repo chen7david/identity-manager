@@ -1,5 +1,5 @@
 const { ValidationError } = require('joi')
-const { UniqueViolationError } = require('objection')
+const { UniqueViolationError, ForeignKeyViolationError } = require('objection')
 const { serialInt } = require('./../utils/functions')
 
 module.exports = {
@@ -14,6 +14,13 @@ module.exports = {
 
         if(err instanceof UniqueViolationError){
             let key = err.columns.pop()
+            ctx.cargo.original({}).state('validation').status(422)
+            ctx.cargo.loadmsg(key, `this ${key} is already taken`)
+        }
+        
+        if(err instanceof ForeignKeyViolationError){
+            let key = err.columns.pop()
+            dd({key})
             ctx.cargo.original({}).state('validation').status(422)
             ctx.cargo.loadmsg(key, `this ${key} is already taken`)
         }
