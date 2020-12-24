@@ -15,7 +15,7 @@ module.exports = {
         if(err instanceof UniqueViolationError){
             let key = err.columns.pop()
             ctx.cargo.original({}).state('validation').status(422)
-            ctx.cargo.loadmsg(key, `this ${key} is taken`)
+            ctx.cargo.loadmsg(key, `this ${key} is already taken`)
         }
 
         /* DEFAULT EXCEPTION MUTATOR */

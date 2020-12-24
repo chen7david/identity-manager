@@ -1,7 +1,7 @@
 const Model = require('./Model')
 const bcrypt = require('bcrypt')
 const BCRYPT_ROUNDS = 12
-const { serialChar } = require('./../utils/functions')
+const { serialAlphNum } = require('./../utils/functions')
 
 class User extends Model {
  
@@ -15,7 +15,7 @@ class User extends Model {
             .hash(this.password, BCRYPT_ROUNDS)
         if(this.username) this.username = this.username.toLowerCase()
         if(this.passwordConfirm) delete this.passwordConfirm
-        this.userId = serialChar("US0000000000")
+        this.userId = serialAlphNum("US0000000000").toUpperCase()
     }
 
     async $beforeUpdate(context){

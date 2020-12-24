@@ -4,8 +4,7 @@ module.exports = {
 
     index: async (ctx) => {
         const body = ctx.request.body
-        dd({body})
-        ctx.body = await User.query()
+        ctx.body = await User.query().insert(body).returning('*')
     },
 
     create: async (ctx) => {

@@ -2,8 +2,8 @@ GET http://localhost:3000/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "email":"dfd@me.com",
-    "password":"sdf"
+    "email":"max@me.com",
+    "password":"888888"
 }
 
 ###
