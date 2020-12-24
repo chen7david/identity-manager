@@ -3,14 +3,14 @@ const { User } = require('./../models')
 module.exports = {
 
     index: async (ctx) => {
-        
-        ctx.body = await User.query().insert(body).returning('*')
+        const users = await User.query()
+        ctx.body = ctx.cargo.payload(users)
     },
 
     create: async (ctx) => {
         const body = ctx.request.body
         const user = await User.query().insert(body).returning('*')
-        ctx.body = ctx.payload(user).msg('user created!')
+        ctx.body = ctx.cargo.payload(user).msg('user created!')
     },
 
     view: async (ctx) => {

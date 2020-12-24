@@ -1,10 +1,11 @@
 GET http://localhost:3000/users HTTP/1.1
+
+
+###
+POST http://localhost:3000/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "email":"max@me.com",
+    "email":"wamd@me.com",
     "password":"888888"
 }
-
-###
-POST http://aox.hopto.org:4000/login HTTP/1.1
