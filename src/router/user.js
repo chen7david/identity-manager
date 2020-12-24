@@ -1,6 +1,6 @@
 const router = require('koa-router')()
-const controller = require('./../controllers/user')
-const { validateBody, schema} = require('./../middleware/validate')
+const controller = require('../controllers/user')
+const { validateBody, schema} = require('../middleware/validate')
 
 router.param('id', controller.loadInstance)
 

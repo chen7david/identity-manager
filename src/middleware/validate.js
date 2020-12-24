@@ -7,8 +7,8 @@ const schema = {
     }),
 
     createRole: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
-        email: Joi.string().email().required(),
-        password: Joi.string().min(6).required(),
+        name: Joi.string().email().required(),
+        description: Joi.string(),
     }),
 
     updateUser: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
@@ -17,8 +17,8 @@ const schema = {
     }),
 
     updateRole: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
-        email: Joi.string().email(),
-        password: Joi.string().min(6),
+        name: Joi.string().email(),
+        description: Joi.string(),
     }),
 }
 
