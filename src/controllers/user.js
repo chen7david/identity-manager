@@ -3,7 +3,8 @@ const { User } = require('./../models')
 module.exports = {
 
     index: async (ctx) => {
-        throw('introuble ')
+        const body = ctx.request.body
+        dd({body})
         ctx.body = await User.query()
     },
 

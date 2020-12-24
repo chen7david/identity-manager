@@ -2,8 +2,8 @@ const Joi = require('joi')
 
 const schema = {
     role: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
-        phone: Joi.string().length(11).required().label('telephone'),
-        password: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).required(),
     })
 }
 
