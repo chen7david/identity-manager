@@ -28,11 +28,14 @@ module.exports = {
     },
 
     update: async (ctx) => {
-        ctx.body = 'test'
+        const body = ctx.request.body
+        const user = await ctx.state.user.$query().patch(body).returning('*')
+        ctx.body = ctx.cargo.payload(user).msg('user updated!')
     },
 
     delete: async (ctx) => {
-        ctx.body = 'test'
+        const result = await ctx.state.user.$query().delete()
+        ctx.body = ctx.cargo.payload(result).msg('user deleted!')
     },
 
     syncRoles: async (ctx) => {

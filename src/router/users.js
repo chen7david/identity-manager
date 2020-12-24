@@ -5,8 +5,11 @@ const { validateBody, schema} = require('./../middleware/validate')
 router.param('id', controller.loadInstance)
 
 router.get('/users', controller.index)
+router.post('/users', validateBody(schema.createUser), controller.create)
 router.get('/users/:id', controller.view)
-// router.post('/users', validateBody(schema.role), controller.create)
+router.patch('/users/:id', validateBody(schema.updateUser), controller.update)
+router.delete('/users/:id', controller.delete)
+
 
 
 module.exports = router

@@ -1,10 +1,25 @@
 const Joi = require('joi')
 
 const schema = {
-    role: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
+    createUser: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
-    })
+    }),
+
+    createRole: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
+        email: Joi.string().email().required(),
+        password: Joi.string().min(6).required(),
+    }),
+
+    updateUser: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
+        email: Joi.string().email(),
+        password: Joi.string().min(6),
+    }),
+
+    updateRole: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
+        email: Joi.string().email(),
+        password: Joi.string().min(6),
+    }),
 }
 
 module.exports = {
