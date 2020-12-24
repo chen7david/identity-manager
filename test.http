@@ -26,3 +26,19 @@ Content-Type: application/json
 {
     "roleId": [1]
 }
+
+###
+GET http://localhost:3000/roles HTTP/1.1
+
+
+###
+GET http://localhost:3000/roles/1 HTTP/1.1
+
+###
+POST http://localhost:3000/roles HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "teacher",
+    "description": "teachers priveliges"
+}
