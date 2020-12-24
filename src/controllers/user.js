@@ -10,7 +10,6 @@ module.exports = {
 
     index: async (ctx) => {
         const users = await User.query()
-        dd(ctx.state)
         ctx.body = ctx.cargo.payload(users)
     },
 
@@ -21,7 +20,11 @@ module.exports = {
     },
 
     view: async (ctx) => {
-        ctx.body = 'test'
+        if(!ctx.state.user){
+            ctx.cargo.msg('invalid user id').status(422)
+            throw({status:422})
+        }
+        ctx.body = ctx.cargo.payload(ctx.state.user)
     },
 
     update: async (ctx) => {

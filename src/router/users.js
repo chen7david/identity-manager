@@ -5,7 +5,7 @@ const { validateBody, schema} = require('./../middleware/validate')
 router.param('id', controller.loadInstance)
 
 router.get('/users', controller.index)
-router.get('/users/:id', controller.index)
+router.get('/users/:id', controller.view)
 // router.post('/users', validateBody(schema.role), controller.create)
 
 
