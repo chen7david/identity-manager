@@ -1,0 +1,10 @@
+GET http://localhost:3000/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "phone":"sdfsd",
+    "password":"sdfsdf"
+}
+
+###
+POST http://aox.hopto.org:4000/login HTTP/1.1

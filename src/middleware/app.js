@@ -6,7 +6,10 @@ module.exports = {
     mutator: async (err, ctx, next) => {
         let mutated = ''
         if(err instanceof ValidationError){
-            mutated = err
+            const { details, _original } = err
+            ctx.cargo.original(_original).state('validation')
+            details.map(d => ctx.cargo.loadmsg(d.context.key, d.message))
+            mutated = ctx.cargo
         }
 
         if(err instanceof UniqueViolationError){

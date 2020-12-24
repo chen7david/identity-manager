@@ -5,6 +5,7 @@ const cors = require('kcors')
 const bodyparser = require('koa-bodyparser')
 const { server } = require('config')
 const router  = require('./router')
+const cargo = require('./utils/cargo')
 const { errors, logger, mutator } = require('./middleware/app')
 
 /* ERROR HANDLING MIDDLEWARE */
@@ -14,6 +15,7 @@ app.on('error', logger)
 /* APPLICATION MIDDLEWARE */
 app.use(cors())
 app.use(bodyparser())
+app.use(cargo())
 
 /* ROUTES */
 Object.keys(router).map(key => app.use(router[key].routes()))
