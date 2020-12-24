@@ -1,7 +1,9 @@
+const { User } = require('./../models')
+
 module.exports = {
 
     index: async (ctx) => {
-        ctx.body = 'test'
+        ctx.body = await User.query()
     },
 
     create: async (ctx) => {

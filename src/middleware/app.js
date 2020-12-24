@@ -4,7 +4,7 @@ const { UniqueViolationError } = require('objection')
 module.exports = {
 
     mutator: async (err, ctx, next) => {
-        let mutated = null
+        let mutated = ''
         if(err instanceof ValidationError){
             mutated = err
         }
@@ -20,15 +20,14 @@ module.exports = {
         try {
             await next()
         } catch (err) {
-            console.log('errors')
+            const data = cb ? await cb(err, ctx, next) : err.message 
             ctx.status = err.status || 500
-            ctx.body = cb ? await cb(err, ctx, next) : err.message
+            ctx.body = data
             ctx.app.emit('error', err, ctx)
         }
     },
 
     logger: (err, ctx) => {
-        console.log('logger')
         console.log(err)
     }
 }
