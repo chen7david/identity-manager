@@ -11,6 +11,11 @@ class Cargo {
         return this
     }
 
+    serial(serial){
+        this.serial = serial
+        return this
+    }
+
     state(state){
         this.details.state = state
         return this

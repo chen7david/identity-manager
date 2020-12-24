@@ -3,10 +3,12 @@ const { User } = require('./../models')
 module.exports = {
 
     index: async (ctx) => {
+        throw('introuble ')
         ctx.body = await User.query()
     },
 
     create: async (ctx) => {
+        throw('introuble')
         ctx.body = 'test'
     },
 
