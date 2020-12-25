@@ -13,9 +13,9 @@ app.use(errors(mutator))
 app.on('error', logger)
 
 /* APPLICATION MIDDLEWARE */
+app.use(cargo())
 app.use(cors())
 app.use(bodyparser())
-app.use(cargo())
 
 /* ROUTES */
 Object.keys(router).map(key => app.use(router[key].routes()))
