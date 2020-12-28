@@ -13,7 +13,7 @@ module.exports = {
     },
 
     index: async (ctx) => {
-        const users = await User.query()
+        const users = await User.query() 
         ctx.body = ctx.cargo.payload(users)
     },
 
