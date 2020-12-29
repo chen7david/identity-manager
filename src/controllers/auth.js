@@ -59,13 +59,19 @@ module.exports = {
             ctx.cargo.status(401).msg('invalid refresh token')
             throw({status:401})
         }
-        const token = await Token.loadRefreshToken(refresh)
-        // dd({token})
-        // if(token.expired) return ctx.body = ctx.cargo.setDetail('expired', 'token')
-        // await token.incrementRefreshCount()
-        // ctx.body = ctx.cargo.setPayload({
-        //     access: await token.getAccessToken(),
-        // })
-        ctx.body = token
+        try {
+            const token = await Token.loadRefreshToken(refresh)
+            await token.incrementRefresh()
+            ctx.body = ctx.cargo.payload({
+                access: token.renderAccessToken(),
+            })
+        } catch (err) {
+            if(err.message == 'jwt expired') {
+                ctx.cargo.status(401).msg('refresh-token expired')
+                throw({status:401})
+            }else{
+                throw err
+            }
+        }
     },
 }

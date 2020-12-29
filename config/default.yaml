@@ -7,7 +7,7 @@ security:
     refkey: secretinformation
     passphrase: seconprivatekey
     accexp: 1s
-    refexp: -1d
+    refexp: 30d
 
 database:
     client: postgresql
