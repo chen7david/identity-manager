@@ -2,6 +2,7 @@ const Joi = require('joi')
 
 const schema = {
     createUser: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
+        username: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().min(6).required(),
     }),
