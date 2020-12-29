@@ -5,7 +5,7 @@ module.exports = {
     loadInstance: async (id, ctx, next) => {
         const role = await Role.query().where('id', id).first()
         if(!role){
-            ctx.cargo.msg('invalid role id').status(422)
+            ctx.cargo.status(422).original(_original).state('validation').
             throw({status:422})
         }
         ctx.state.role = role

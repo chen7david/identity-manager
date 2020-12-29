@@ -2,6 +2,16 @@ const { User, Token } = require('./../models')
 
 module.exports = {
 
+    loadInstance: async (id, ctx, next) => {
+        const user = await User.query().where('id', id).first()
+        if(!user){
+            ctx.cargo.msg('invalid user id').status(422)
+            throw({status:422})
+        }
+        ctx.state.user = user
+        await next()
+    },
+
     loadUsername: async (ctx, next) => {
         
         const { username } = ctx.request.body
@@ -9,21 +19,27 @@ module.exports = {
             .where('username', username)
             .orWhere('email', username)
             .first()
-            
-        if(!user) return ctx.body = ctx.cargo.loadDetails('invalid', 'username', 'username')
+        if(!user){
+            ctx.cargo.status(422).original(ctx.request.body).state('validation')
+            .loadmsg('username', 'username not found')
+            throw({status:422})
+        }
         ctx.state.$user = user
         return next()
     },
 
     checkPassword: async (ctx, next) => {
         const { password } = ctx.request.body
-        if(!await ctx.state.$user.verifyPassword(password)) 
-            return ctx.body = ctx.cargo.loadDetails('invalid', 'password', 'password')
+        if(!await ctx.state.$user.verifyPassword(password)){
+            ctx.cargo.status(422).original(ctx.request.body).state('validation')
+            .loadmsg('password', 'invalid password')
+            throw({status:422})
+        }
         return next()
     },
 
-    index: async (ctx) => {
-        ctx.body = 'test'
+    login: async (ctx) => {
+        ctx.body = 'logged in '
     },
 
     create: async (ctx) => {
