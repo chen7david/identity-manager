@@ -39,7 +39,16 @@ module.exports = {
     },
 
     login: async (ctx) => {
-        ctx.body = 'logged in '
+        const token = await ctx.state.$user
+            .$relatedQuery('tokens')
+            .insert({useragent: ctx.headers['user-agent']})
+
+        ctx.body = ctx.cargo.msg('login was successful')
+            .payload({
+                user: ctx.state.$user,
+                access: await token.renderAccessToken(),
+                refresh: await token.renderRefreshToken(),
+            })
     },
 
     create: async (ctx) => {
