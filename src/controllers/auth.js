@@ -51,23 +51,21 @@ module.exports = {
             })
     },
 
-    create: async (ctx) => {
-        ctx.body = 'test'
-    },
+    extend: async (ctx, next) => {
+        const { refresh } = ctx.headers
 
-    view: async (ctx) => {
-        ctx.body = 'test'
-    },
-
-    update: async (ctx) => {
-        ctx.body = 'test'
-    },
-
-    delete: async (ctx) => {
-        ctx.body = 'test'
-    },
-
-    syncRoles: async (ctx) => {
-        ctx.body = 'test'
+        const payload = await Token.decode(refresh)
+        if(!payload || !payload.refresh){
+            ctx.cargo.status(401).msg('invalid refresh token')
+            throw({status:401})
+        }
+        const token = await Token.loadRefreshToken(refresh)
+        // dd({token})
+        // if(token.expired) return ctx.body = ctx.cargo.setDetail('expired', 'token')
+        // await token.incrementRefreshCount()
+        // ctx.body = ctx.cargo.setPayload({
+        //     access: await token.getAccessToken(),
+        // })
+        ctx.body = token
     },
 }

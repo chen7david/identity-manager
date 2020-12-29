@@ -64,9 +64,9 @@ class Token extends Model {
     }
 
     renderRefreshToken(){
-        const {tokenId, user:{ userId }} = this
+        const {tokenId, user:{ userId, password }} = this
         const payload = { refresh: true, tokenId, userId }
-        return JWT.sign(payload, refkey, refsign)
+        return JWT.sign(payload, refkey + password, refsign)
     }
 
     async incrementCalls(){

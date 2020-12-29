@@ -1,4 +1,5 @@
 const { ValidationError } = require('joi')
+const { JsonWebTokenError } = require('jsonwebtoken')
 const { UniqueViolationError, ForeignKeyViolationError } = require('objection')
 const { serialInt } = require('./../utils/functions')
 
@@ -16,6 +17,10 @@ module.exports = {
             let key = err.columns.pop()
             ctx.cargo.original(ctx.request.body).state('validation').status(422)
             ctx.cargo.loadmsg(key, `this ${key} is already taken`)
+        }
+
+        if(err instanceof JsonWebTokenError){
+            if(err.message == 'invalid signature') ctx.cargo.status(401).msg('invalid signature')
         }
 
         /* DEFAULT EXCEPTION MUTATOR */

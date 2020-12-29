@@ -11,4 +11,6 @@ router.post('/login',
     controller.login
 )
 
+router.patch('/login', controller.extend)
+
 module.exports = router
