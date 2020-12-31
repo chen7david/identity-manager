@@ -1,4 +1,5 @@
 const { User, Token } = require('./../models')
+const { pubkey } = require('./../utils/keys')
 
 module.exports = {
 
@@ -36,6 +37,10 @@ module.exports = {
             throw({status:422})
         }
         return next()
+    },
+
+    pubkey: async (ctx) => {
+        ctx.body = ctx.cargo.payload({pubkey})
     },
 
     login: async (ctx) => {

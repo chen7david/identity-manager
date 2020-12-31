@@ -11,6 +11,7 @@ router.post('/login',
     controller.login
 )
 
+router.get('/pubkey', controller.pubkey)
 router.patch('/login', controller.extend)
 
 module.exports = router
