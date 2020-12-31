@@ -35,6 +35,7 @@ class Token extends Model {
     static verifyAccessToken(token){
         return JWT.verify(token, pubkey, versign)
     }
+    
     static verifyRefreshToken(token, password){
         return JWT.verify(token, refkey + password)
     }

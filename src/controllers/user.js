@@ -43,4 +43,9 @@ module.exports = {
         const changed = await ctx.state.user.$sync('roles', roleId)
         ctx.body = ctx.cargo.payload({changed: changed}).msg('user roles updated')
     },
+
+    tokens: async (ctx) => {
+        const tokens = await ctx.state.user.$relatedQuery('tokens')
+        ctx.body = ctx.cargo.payload({tokens})
+    },
 }

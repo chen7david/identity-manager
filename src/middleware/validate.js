@@ -27,6 +27,11 @@ const schema = {
         name: Joi.string(),
         description: Joi.string(),
     }),
+
+    updateToken: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
+        name: Joi.string(),
+        description: Joi.string(),
+    }),
 }
 
 module.exports = {
