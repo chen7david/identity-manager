@@ -1,5 +1,7 @@
 const { User, Token } = require('./../models')
 const { pubkey } = require('./../utils/keys')
+const jwt = require('jsonwebtoken')
+const { verkey, pwdkey, pwdexp, verexp } = require('config').security
 const { verlink, pwdlink } = require('config').endpoints
 
 module.exports = {
@@ -24,32 +26,29 @@ module.exports = {
     },
 
     requestVerification: async (ctx, next) => {
-        try {
-            const user = ctx.state.$user
+        const user = ctx.state.$user
         if(user.verified) ctx.cargo.msg('this account has already been verified').error(422)
         if(user.blocked) ctx.cargo.msg('this account has been blocked').error(422)
-        const link = verlink.replace(':key', user.renderVerificationToken())
+
+        const payload = { userId: this.userId }
+        const token = jwt.sign(payload, this.password + verkey, { expiresIn: verexp })
+
+        const link = verlink.replace(':token', token)
         await ctx.mailer.sendMail({
             to: user.email,
             subject: 'Account Verification',
-            html: `please verify your account by clicking this link: ${link}`
+            html: `please click <a href="${link}">here</a> to verify your account.`
         })
-        dd(link) 
-        ctx.body = ctx.cargo.msg('account verification complete!')
-        } catch (err) {
-            dd({err})
-        }
+        ctx.body = ctx.cargo.msg(`verification email was sent to ${user.email}!`)
+
     },
 
     handleVerification: async (ctx, next) => {
-        const { email, verified, blocked } = ctx.state.$user
+        const { token } = ctx.request.body
+
         if(verified) ctx.cargo.msg('this account has already been verified').error(422)
         if(blocked) ctx.cargo.msg('this account has been blocked').error(422)
-        ctx.mailer.sendMail({
-            to: email,
-            subject: 'Account Verification',
-            html: `please verify your account by clicking this link`
-        })
+        ctx.body = ctx.cargo.msg(`verification email was sent to ${user.email}!`)
     },
 
     checkPassword: async (ctx, next) => {

@@ -1,9 +1,8 @@
 const Model = require('./Model')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const BCRYPT_ROUNDS = 12
 const { serialAlphNum } = require('./../utils/functions')
-const { verkey, pwdkey, pwdexp, verexp } = require('config').security
+
 
 class User extends Model {
  
@@ -47,8 +46,7 @@ class User extends Model {
     }
 
     renderVerificationToken(){
-        const payload = { userId: this.userId }
-        return jwt.sign(payload, this.password + verkey, { expiresIn: verexp })
+        
     }
 
     renderPWDResetToken(){}

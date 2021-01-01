@@ -11,11 +11,14 @@ router.post('/login',
     controller.login
 )
 
-router.post('/verification', 
+router.post('email-verification', '/verification', 
     validateBody(schema.username), 
     loadUsername, 
     controller.requestVerification
 )
+
+router.get('email-verification', '/verification/:token', controller.requestVerification)
+
 
 router.get('/pubkey', controller.pubkey)
 router.patch('/login', controller.extend)
