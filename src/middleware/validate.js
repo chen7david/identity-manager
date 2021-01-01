@@ -29,8 +29,8 @@ const schema = {
     }),
 
     updateToken: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
-        name: Joi.string(),
-        description: Joi.string(),
+        revoked: Joi.boolean(),
+        active: Joi.boolean(),
     }),
 }
 
