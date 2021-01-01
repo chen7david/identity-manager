@@ -30,25 +30,56 @@ module.exports = {
         if(user.verified) ctx.cargo.msg('this account has already been verified').error(422)
         if(user.blocked) ctx.cargo.msg('this account has been blocked').error(422)
 
-        const payload = { userId: this.userId }
-        const token = jwt.sign(payload, this.password + verkey, { expiresIn: verexp })
-
+        const token = jwt.sign({ userId: user.userId }, verkey, { expiresIn: verexp })
         const link = verlink.replace(':token', token)
+
         await ctx.mailer.sendMail({
             to: user.email,
             subject: 'Account Verification',
             html: `please click <a href="${link}">here</a> to verify your account.`
         })
         ctx.body = ctx.cargo.msg(`verification email was sent to ${user.email}!`)
-
     },
 
     handleVerification: async (ctx, next) => {
-        const { token } = ctx.request.body
+        const { token } = ctx.params
+        const { userId } = jwt.verify(token, verkey)
+        const user = await User.query().where('userId', userId).first()
+        if(!user) ctx.cargo.msg('invalid user id').error(422)
+        if(user.isDisabled()) ctx.cargo.msg('this account has been disabled').error(422)
+        if(user.isSuspended()) ctx.cargo.msg('this account has been suspended').error(422)
+        if(user.isConfirmed()) ctx.cargo.msg('this email has already been verified').error(422)
+        await user.confirm()
+        ctx.body = ctx.cargo.msg(`your email was successfully verified`)
+    },
 
-        if(verified) ctx.cargo.msg('this account has already been verified').error(422)
-        if(blocked) ctx.cargo.msg('this account has been blocked').error(422)
-        ctx.body = ctx.cargo.msg(`verification email was sent to ${user.email}!`)
+    requestPasswordReset: async (ctx, next) => {
+        const user = ctx.state.$user
+        if(user.isConfirmed()) ctx.cargo.msg('this account has already been verified').error(422)
+        if(user.isDisabled()) ctx.cargo.msg('this account has been disabled').error(422)
+
+        const token = jwt.sign({ userId: user.userId }, pwdkey, { expiresIn: pwdexp })
+        const link = pwdlink.replace(':token', token)
+
+        await ctx.mailer.sendMail({
+            to: user.email,
+            subject: 'Password Reset',
+            html: `please click <a href="${link}">here</a> to reset your password.`
+        })
+        ctx.body = ctx.cargo.msg(`password reset email was sent to ${user.email}!`)
+    },
+
+    resetPassword: async (ctx, next) => {
+        const { password, token } = ctx.request.body
+        const { userId } = jwt.verify(token, pwdkey)
+        const user = await User.query().where('userId', userId).first()
+        if(!user) ctx.cargo.msg('invalid user id').error(422)
+        if(user.isDisabled()) ctx.cargo.msg('this account has been disabled').error(422)
+        if(user.isSuspended()) ctx.cargo.msg('this account has been suspended').error(422)
+        if(user.isConfirmed()) ctx.cargo.msg('this email has already been verified').error(422)
+        await user.$query().patch({password})
+        ctx.body = ctx.cargo.msg(`your password was successfully updated`)
+        return next()
     },
 
     checkPassword: async (ctx, next) => {

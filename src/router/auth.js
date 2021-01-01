@@ -17,7 +17,14 @@ router.post('email-verification', '/verification',
     controller.requestVerification
 )
 
-router.get('email-verification', '/verification/:token', controller.requestVerification)
+router.post('password-reset', '/password-reset', 
+    validateBody(schema.username), 
+    loadUsername, 
+    controller.requestPasswordReset
+)
+
+router.get('email-verification', '/verification/:token', controller.handleVerification)
+router.post('password-reset', '/password-reset/:token', controller.resetPassword)
 
 
 router.get('/pubkey', controller.pubkey)

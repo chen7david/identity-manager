@@ -22,6 +22,7 @@ module.exports = {
         if(err instanceof JsonWebTokenError){
             if(err.message == 'invalid signature') ctx.cargo.status(401).msg('invalid signature')
             if(err.message == 'jwt expired') ctx.cargo.status(401).msg('jwt expired')
+            if(err.message == 'jwt malformed') ctx.cargo.status(401).msg('invalid jwt format')
         }
 
         /* DEFAULT EXCEPTION MUTATOR */
