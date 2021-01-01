@@ -114,7 +114,12 @@ Content-Type: application/json
 ### GET USERS
 GET http://localhost:3000/users HTTP/1.1
 
+
+```
+
 ### CREATE USER
+
+```http
 POST http://localhost:3000/users HTTP/1.1
 Content-Type: application/json
 
@@ -124,7 +129,11 @@ Content-Type: application/json
     "password":"999999"
 }
 
+```
+
 ### GET USER
+
+```http
 GET http://localhost:3000/users/1 HTTP/1.1
 ### EDIT USER
 PATCH http://localhost:3000/users/9 HTTP/1.1
@@ -134,7 +143,12 @@ Content-Type: application/json
     "email":"delta@me.com",
     "password":"888888"
 }
+
+```
+
 ### DELETE USER
+
+```http
 DELETE http://localhost:3000/users/9 HTTP/1.1
 ### UPDATE USER ROLES
 PATCH http://localhost:3000/users/1/roles HTTP/1.1
@@ -144,9 +158,19 @@ Content-Type: application/json
     "roleId": [1,2]
 }
 
+
+```
+
 ### GET ROLES
+
+```http
 GET http://localhost:3000/roles HTTP/1.1
+
+```
+
 ### CREATE ROLE
+
+```http
 POST http://localhost:3000/roles HTTP/1.1
 Content-Type: application/json
 
@@ -154,9 +178,19 @@ Content-Type: application/json
     "name": "fantas",
     "description": "teachers priveliges"
 }
+
+```
+
 ### GET ROLE
+
+```http
 GET http://localhost:3000/roles/1 HTTP/1.1
+
+```
+
 ### EDIT ROLE
+
+```http
 PATCH http://localhost:3000/roles/1 HTTP/1.1
 Content-Type: application/json
 
@@ -164,9 +198,19 @@ Content-Type: application/json
     "name":"admin",
     "description":"complete access to all systems"
 }
+
+```
+
 ### DELETE ROLE
+
+```http
 DELETE http://localhost:3000/roles/1 HTTP/1.1
+
+```
+
 ### UPDATE ROLE USERS
+
+```http
 PATCH http://localhost:3000/roles/1/users HTTP/1.1
 Content-Type: application/json
 
