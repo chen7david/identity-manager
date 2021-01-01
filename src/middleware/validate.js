@@ -32,6 +32,10 @@ const schema = {
         revoked: Joi.boolean(),
         active: Joi.boolean(),
     }),
+
+    username: Joi.object().options({ abortEarly: false, stripUnknown: true }).keys({
+        username: Joi.string().required(),
+    }),
 }
 
 module.exports = {

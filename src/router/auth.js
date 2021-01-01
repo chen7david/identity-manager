@@ -11,7 +11,14 @@ router.post('/login',
     controller.login
 )
 
+router.post('/verification', 
+    validateBody(schema.username), 
+    loadUsername, 
+    controller.requestVerification
+)
+
 router.get('/pubkey', controller.pubkey)
 router.patch('/login', controller.extend)
+
 
 module.exports = router

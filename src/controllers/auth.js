@@ -11,7 +11,6 @@ module.exports = {
     },
 
     loadUsername: async (ctx, next) => {
-        
         const { username } = ctx.request.body
         const user = await User.query()
             .where('username', username)
@@ -24,15 +23,26 @@ module.exports = {
     },
 
     requestVerification: async (ctx, next) => {
-        
+        const { email, password, verified, blocked } = ctx.state.$user
+        if(verified) ctx.cargo.msg('this account has already been verified').error(422)
+        if(blocked) ctx.cargo.msg('this account has been blocked').error(422)
+
+        ctx.mailer.sendMail({
+            to: email,
+            subject: 'Account Verification',
+            html: `please verify your account by clicking this link`
+        })
+        ctx.body = ctx.cargo.msg('account verification complete!')
     },
 
     handleVerification: async (ctx, next) => {
         const { email, password, verified, blocked } = ctx.state.$user
+        if(verified) ctx.cargo.msg('this account has already been verified').error(422)
+        if(blocked) ctx.cargo.msg('this account has been blocked').error(422)
         ctx.mailer.sendMail({
             to: email,
             subject: 'Account Verification',
-            html: ``
+            html: `please verify your account by clicking this link`
         })
     },
 
