@@ -5,10 +5,7 @@ module.exports = {
 
     loadInstance: async (id, ctx, next) => {
         const user = await User.query().where('id', id).first()
-        if(!user){
-            ctx.cargo.msg('invalid user id').error(422)
-            // throw({status:422})
-        }
+        if(!user) ctx.cargo.msg('invalid user id').error(422)
         ctx.state.user = user
         await next()
     },
@@ -20,10 +17,8 @@ module.exports = {
             .where('username', username)
             .orWhere('email', username)
             .first()
-        if(!user){
-            ctx.cargo.original(ctx.request.body).state('validation')
+        if(!user) ctx.cargo.original(ctx.request.body).state('validation')
             .loadmsg('username', 'username not found').error(422)
-        }
         ctx.state.$user = user
         return next()
     },
@@ -71,10 +66,7 @@ module.exports = {
         const { refresh } = ctx.headers
 
         const payload = await Token.decode(refresh)
-        if(!payload || !payload.refresh){
-            ctx.cargo.status(401).msg('invalid refresh token')
-            throw({status:401})
-        }
+        if(!payload || !payload.refresh) ctx.cargo.msg('invalid refresh token').error(401)
         try {
             const token = await Token.loadRefreshToken(refresh)
             await token.incrementRefresh()
@@ -83,8 +75,7 @@ module.exports = {
             })
         } catch (err) {
             if(err.message == 'jwt expired') {
-                ctx.cargo.status(401).msg('refresh-token expired')
-                throw({status:401})
+                ctx.cargo.msg('refresh-token expired').error(401)
             }else{
                 throw err
             }
