@@ -4,10 +4,7 @@ module.exports = {
 
     loadInstance: async (id, ctx, next) => {
         const role = await Role.query().where('id', id).first()
-        if(!role){
-            ctx.cargo.status(422).original(_original).state('validation').
-            throw({status:422})
-        }
+        if(!role) ctx.cargo.original(_original).state('validation').error(422)
         ctx.state.role = role
         await next()
     },

@@ -4,10 +4,7 @@ module.exports = {
 
     loadInstance: async (id, ctx, next) => {
         const token = await Token.query().where('id', id).first()
-        if(!token){
-            ctx.cargo.status(422).original(_original).state('validation').
-            throw({status:422})
-        }
+        if(!token) ctx.cargo.original(_original).state('validation').error(422)
         ctx.state.token = token
         await next()
     },

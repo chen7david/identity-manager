@@ -4,10 +4,7 @@ module.exports = {
 
     loadInstance: async (id, ctx, next) => {
         const user = await User.query().where('id', id).first()
-        if(!user){
-            ctx.cargo.msg('invalid user id').status(422)
-            throw({status:422})
-        }
+        if(!user) ctx.cargo.msg('invalid user id').error(422)
         ctx.state.user = user
         await next()
     },
