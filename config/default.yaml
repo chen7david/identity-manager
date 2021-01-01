@@ -20,7 +20,7 @@ email:
 
 endpoints:
     verlink: http://localhost:3000/verification/:token
-    pwdlink: http://localhost:3000/pwdreset/:token  
+    pwdlink: http://localhost:3000/password-reset/:token  
     
 database:
     client: postgresql

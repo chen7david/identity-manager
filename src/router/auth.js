@@ -24,7 +24,7 @@ router.post('password-reset', '/password-reset',
 )
 
 router.get('email-verification', '/verification/:token', controller.handleVerification)
-router.get('password-reset', '/password-reset/:token', controller.resetPassword)
+router.patch('password-reset', '/password-reset', controller.resetPassword)
 
 
 router.get('/pubkey', controller.pubkey)
