@@ -9,6 +9,11 @@ security:
     accexp: 1s
     refexp: 30d
 
+email:
+    service: 'gmail'
+    user: 'aox.mailer@gmail.com'
+    pass: 'Iamdavid7D'
+
 database:
     client: postgresql
     connection:
