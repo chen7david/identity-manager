@@ -20,10 +20,10 @@ module.exports = {
         }
 
         if(err instanceof JsonWebTokenError){
-            if(err.message == 'invalid signature') ctx.cargo.status(401).msg('invalid signature')
-            if(err.message == 'jwt expired') ctx.cargo.status(401).msg('jwt expired')
-            if(err.message == 'jwt malformed') ctx.cargo.status(401).msg('invalid jwt format')
-            if(err.message == 'jwt must be provided') ctx.cargo.status(401).msg('jwt missing')
+            if(err.message == 'invalid signature') ctx.cargo.status(401).msg('invalid token signature')
+            if(err.message == 'jwt expired') ctx.cargo.status(401).msg('token expired')
+            if(err.message == 'jwt malformed') ctx.cargo.status(401).msg('invalid token format')
+            if(err.message == 'jwt must be provided') ctx.cargo.status(401).msg('token missing')
         }
 
         /* DEFAULT EXCEPTION MUTATOR */
