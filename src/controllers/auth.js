@@ -55,7 +55,7 @@ module.exports = {
 
     requestPasswordReset: async (ctx, next) => {
         const user = ctx.state.$user
-        if(user.isConfirmed()) ctx.cargo.msg('this account has already been verified').error(422)
+        if(!user.isConfirmed()) ctx.cargo.msg('this account has not yet been verified').error(422)
         if(user.isDisabled()) ctx.cargo.msg('this account has been disabled').error(422)
 
         const token = jwt.sign({ userId: user.userId }, pwdkey, { expiresIn: pwdexp })
@@ -66,7 +66,7 @@ module.exports = {
             subject: 'Password Reset',
             html: `please click <a href="${link}">here</a> to reset your password.`
         })
-        ctx.body = ctx.cargo.msg(`password reset email was sent to ${user.email}!`)
+        ctx.body = ctx.cargo.msg(`password-reset email was sent to ${user.email}!`)
     },
 
     resetPassword: async (ctx, next) => {
@@ -76,7 +76,7 @@ module.exports = {
         if(!user) ctx.cargo.msg('invalid user id').error(422)
         if(user.isDisabled()) ctx.cargo.msg('this account has been disabled').error(422)
         if(user.isSuspended()) ctx.cargo.msg('this account has been suspended').error(422)
-        if(user.isConfirmed()) ctx.cargo.msg('this email has already been verified').error(422)
+        if(!user.isConfirmed()) ctx.cargo.msg('this account email has not been verified').error(422)
         await user.$query().patch({password})
         ctx.body = ctx.cargo.msg(`your password was successfully updated`)
         return next()
