@@ -68,14 +68,24 @@ Refresh: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWZyZXNoIjp0cnVlLCJ0b2tlbklkIj
 ### DISABLE
 ### DEACTIVATE
 
+
+```
+
 ### START EMAIL CONFIRMATION
+
+```http
 POST http://localhost:3000/verification HTTP/1.1
 Content-Type: application/json
 
 {
     "username":"chen7david@me.com"
 }
+
+```
+
 ### END EMAIL CONFIRMATION
+
+```http
 GET http://localhost:3000/verification/sdfs HTTP/1.1
 
 ### START PASSWORD RECOVERY
@@ -85,7 +95,12 @@ Content-Type: application/json
 {
     "username":"chen7david@me.com"
 }
+
+```
+
 ### END PASSWORD RECOVERY
+
+```http
 PATCH http://localhost:3000/password-reset
 Content-Type: application/json
 
