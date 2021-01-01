@@ -23,20 +23,20 @@ module.exports = {
     },
 
     requestVerification: async (ctx, next) => {
-        const { email, password, verified, blocked } = ctx.state.$user
-        if(verified) ctx.cargo.msg('this account has already been verified').error(422)
-        if(blocked) ctx.cargo.msg('this account has been blocked').error(422)
+        const user = ctx.state.$user
+        if(user.verified) ctx.cargo.msg('this account has already been verified').error(422)
+        if(user.blocked) ctx.cargo.msg('this account has been blocked').error(422)
 
         ctx.mailer.sendMail({
-            to: email,
+            to: user.email,
             subject: 'Account Verification',
-            html: `please verify your account by clicking this link`
+            html: `please verify your account by clicking this link: ${user.renderVerificationToken()}`
         })
         ctx.body = ctx.cargo.msg('account verification complete!')
     },
 
     handleVerification: async (ctx, next) => {
-        const { email, password, verified, blocked } = ctx.state.$user
+        const { email, verified, blocked } = ctx.state.$user
         if(verified) ctx.cargo.msg('this account has already been verified').error(422)
         if(blocked) ctx.cargo.msg('this account has been blocked').error(422)
         ctx.mailer.sendMail({
