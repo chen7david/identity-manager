@@ -38,8 +38,9 @@ get-user-roles | gets all of a user's roles | GET | /users/:id/roles
 update-user-roles | links and or unlinks user-roles  | PATCH | /users/:id/roles
 
 
-```http
 ### LOGIN
+
+```http
 POST http://localhost:3000/login HTTP/1.1
 Content-Type: application/json
 
@@ -47,12 +48,20 @@ Content-Type: application/json
     "username":"18500290402",
     "password":"888889"
 }
+```
 
 ### EXTEND
+
+```http
 PATCH http://localhost:3000/login HTTP/1.1
 Content-Type: application/json
 Refresh: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWZyZXNoIjp0cnVlLCJ0b2tlbklkIjoiVE9NRC12Q0dUZHBYdy1aa29QYS1TdnVtUyIsInVzZXJJZCI6IlVTWE5OTUNWT0pTUiIsImlhdCI6MTYwOTIyNTY0NCwiZXhwIjoxNjExODE3NjQ0fQ.zEnXLa4OWmwR55TyvCAqWEd4u-5DPB5tUiMqfpA3xF0
 
+```
+
+### EXTEND
+
+```http
 
 ### LOGOUT
 ### BLOCK
