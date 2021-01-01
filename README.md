@@ -37,3 +37,25 @@ Name | Description | Method | URL
 get-user-roles | gets all of a user's roles | GET | /users/:id/roles
 update-user-roles | links and or unlinks user-roles  | PATCH | /users/:id/roles
 
+
+```http
+### START PASSWORD RECOVERY
+
+POST http://localhost:3000/password-reset HTTP/1.1
+Content-Type: application/json
+
+{
+    "username":"chen7david@me.com"
+}
+
+### END PASSWORD RECOVERY
+
+PATCH http://localhost:3000/password-reset
+Content-Type: application/json
+
+{
+    "password": "888889",
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU1hOTk1DVk9KU1IiLCJpYXQiOjE2MDk0ODg0NjYsImV4cCI6MTYwOTQ4ODUyNn0.4okbMOYtB6yfqH5h_rhyLw4otnPS_Sdcl7FLv9FKksw"
+}
+```
+
