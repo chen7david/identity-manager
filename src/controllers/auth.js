@@ -6,8 +6,8 @@ module.exports = {
     loadInstance: async (id, ctx, next) => {
         const user = await User.query().where('id', id).first()
         if(!user){
-            ctx.cargo.msg('invalid user id').status(422)
-            throw({status:422})
+            ctx.cargo.msg('invalid user id').error(422)
+            // throw({status:422})
         }
         ctx.state.user = user
         await next()
@@ -21,20 +21,31 @@ module.exports = {
             .orWhere('email', username)
             .first()
         if(!user){
-            ctx.cargo.status(422).original(ctx.request.body).state('validation')
-            .loadmsg('username', 'username not found')
-            throw({status:422})
+            ctx.cargo.original(ctx.request.body).state('validation')
+            .loadmsg('username', 'username not found').error(422)
         }
         ctx.state.$user = user
         return next()
     },
 
+    requestVerification: async (ctx, next) => {
+        
+    },
+
+    handleVerification: async (ctx, next) => {
+        const { email, password, verified, blocked } = ctx.state.$user
+        ctx.mailer.sendMail({
+            to: email,
+            subject: 'Account Verification',
+            html: ``
+        })
+    },
+
     checkPassword: async (ctx, next) => {
         const { password } = ctx.request.body
         if(!await ctx.state.$user.verifyPassword(password)){
-            ctx.cargo.status(422).original(ctx.request.body).state('validation')
-            .loadmsg('password', 'invalid password')
-            throw({status:422})
+            ctx.cargo.original(ctx.request.body).state('validation')
+            .loadmsg('password', 'invalid password').error(422)
         }
         return next()
     },

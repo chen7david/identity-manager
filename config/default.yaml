@@ -6,8 +6,12 @@ server:
 security:
     refkey: secretinformation
     passphrase: seconprivatekey
+    pwdkey: passwordsecret
+    verkey: accountversecret
     accexp: 1s
     refexp: 30d
+    pwdexp: 30m
+    verexp: 1w 
 
 email:
     service: 'gmail'

@@ -21,6 +21,11 @@ class Cargo {
         return this
     }
 
+    error(status){
+        this.status = status
+        throw({status})
+    }
+
     original(original){
         this.details.original = original
         return this
