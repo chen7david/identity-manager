@@ -1,5 +1,6 @@
 const { User, Token } = require('./../models')
 const { pubkey } = require('./../utils/keys')
+const { verlink, pwdlink } = require('config').endpoints
 
 module.exports = {
 
@@ -23,16 +24,21 @@ module.exports = {
     },
 
     requestVerification: async (ctx, next) => {
-        const user = ctx.state.$user
+        try {
+            const user = ctx.state.$user
         if(user.verified) ctx.cargo.msg('this account has already been verified').error(422)
         if(user.blocked) ctx.cargo.msg('this account has been blocked').error(422)
-
-        ctx.mailer.sendMail({
+        const link = verlink.replace(':key', user.renderVerificationToken())
+        await ctx.mailer.sendMail({
             to: user.email,
             subject: 'Account Verification',
-            html: `please verify your account by clicking this link: ${user.renderVerificationToken()}`
+            html: `please verify your account by clicking this link: ${link}`
         })
+        dd(link) 
         ctx.body = ctx.cargo.msg('account verification complete!')
+        } catch (err) {
+            dd({err})
+        }
     },
 
     handleVerification: async (ctx, next) => {

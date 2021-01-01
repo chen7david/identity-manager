@@ -18,6 +18,10 @@ email:
     user: 'aox.mailer@gmail.com'
     pass: 'Iamdavid7D'
 
+endpoints:
+    verlink: http://localhost:3000/verification/:key
+    pwdlink: http://localhost:3000/pwdreset/:key  
+    
 database:
     client: postgresql
     connection:
